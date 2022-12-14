@@ -16,12 +16,25 @@ public class Rekrute {
     private String niveau;
     private String region;
     private String expRequise;
-    private Set traitsPersonnalite;
+    private String traitsPersonnalite;
     private String  descriptionEntreprise;
     private String postDesc;
     private String  profilRecherche;
     private String address;
 
+    private String diplome;
+
+    public void setTraitsPersonnalite(String traitsPersonnalite) {
+        this.traitsPersonnalite = traitsPersonnalite;
+    }
+
+    public String getDiplome() {
+        return diplome;
+    }
+
+    public void setDiplome(String diplome) {
+        this.diplome = diplome;
+    }
 
     public String getUrlPost() {
         return urlPost;
@@ -111,12 +124,13 @@ public class Rekrute {
         this.expRequise = expRequise;
     }
 
-    public Set<String> getTraitsPersonnalite() {
+    public String getTraitsPersonnalite() {
         return traitsPersonnalite;
     }
 
     public void setTraitsPersonnalite(Set<String> traitsPersonnalite) {
-        this.traitsPersonnalite = traitsPersonnalite;
+        //attention!!!!!!
+        this.traitsPersonnalite = traitsPersonnalite.toString();
     }
 
     public String getDescriptionEntreprise() {
@@ -170,6 +184,7 @@ public class Rekrute {
                 ", postDesc='" + postDesc + '\'' +
                 ", profilRecherche='" + profilRecherche + '\'' +
                 ", address='" + address + '\'' +
+                ", diplome='" + diplome + '\'' +
                 '}';
     }
 }

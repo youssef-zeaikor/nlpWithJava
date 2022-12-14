@@ -2,6 +2,7 @@ package com.scraping.project.repository;
 
 import com.scraping.project.module.Rekrute;
 import com.sun.source.doctree.DocCommentTree;
+import org.example.Main;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -35,17 +36,19 @@ public class ExtractPostInfo implements PostInfo{
                info5(postDoc);//+4+diplome
                traitsPersonnalite(postDoc);
                descriptionEntreprise(postDoc);
-//               postDesc(postDoc);
-//               profilRecherche(postDoc);
+               postDesc(postDoc);
+               profilRecherche(postDoc);
 //               ===========16=====================
 
 //------------------------------------------------------------------------------------------
 //               competenceRequises(postDoc);=> dans profilRecherche
 //               competenceRecommandees(postDoc);=> dans profilRecherche
-//               langues(postDoc);//not what exepected
+//               langues(postDoc);//doesn't exist
 
 
                System.out.println(rekrute);
+               Main.savePostInfo(rekrute);
+
            } catch (IOException e) {
                System.out.println("------error------------");
                throw new RuntimeException(e);
@@ -124,7 +127,7 @@ public class ExtractPostInfo implements PostInfo{
            description= postDoc.select("div#recruiterDescription p").text();
            rekrute.setDescriptionEntreprise(description);
        }catch (Exception e){
-           System.out.println(e);
+           rekrute.setDescriptionEntreprise("description");
            System.out.println("++++++description++++++");
        }
     }
@@ -133,11 +136,11 @@ public class ExtractPostInfo implements PostInfo{
        String nomEntreprise;
        try {
            nomEntreprise= postDoc.select("div#recruiterDescription > p > strong").first().text();
-//           System.out.println(nomEntreprise);
            rekrute.setNomEntreprise(nomEntreprise);
        }catch (Exception e){
-           System.out.println(e);
-           System.out.println("++++++++name++++++OFPPT++++");
+           //si c'est pas une entreprise set ""
+           rekrute.setNomEntreprise("");
+//           System.out.println("++++++++name++++++OFPPT++++");
        }
 
    }
@@ -145,11 +148,13 @@ public class ExtractPostInfo implements PostInfo{
 //       String profilRecherche = postDoc.select("div.col-md-12.blc h2 ").first().text();
        try{
            Elements profilRechercheEls = postDoc.select(" div.col-md-12.blc h2:contains(Profil recherché :)");
-
+             String s="";
            for(Element element: profilRechercheEls){
                for (Element el : element.nextElementSiblings()) {
-                   System.out.println((el.text()));
+                   s = s.concat(el.text()).concat(" ");
                }
+               rekrute.setProfilRecherche(s);
+
 
            }
        }catch (Exception e){
@@ -168,21 +173,20 @@ public class ExtractPostInfo implements PostInfo{
            info.put(element.attr("title"),element.text());
        }
        Split5Info.splitInfo(info,rekrute);
-//       Split5Info.diplome(info);
+       Split5Info.diplome(info,rekrute);
    }
 
    public void postDesc(Document postDoc){
-       List postInfo = new ArrayList<>();
        Elements postDescEls = postDoc.select(" div.col-md-12.blc h2:contains(Poste :)");
+       String s="";
        for(Element element: postDescEls){
            Elements li = element.nextElementSiblings();
            for (Element e:li){
-               postInfo.add(e.text());
-               System.out.println(e.text());
+               s = s.concat(e.text()).concat(" ");
            }
 
        }
-       System.out.println("================================");
+       rekrute.setPostDesc(s);
    }
 
 

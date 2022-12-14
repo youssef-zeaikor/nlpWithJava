@@ -8,9 +8,12 @@ import com.scraping.project.repository.ExtractPostsLinks;
 
 public class Main {
     public static void main(String[] args) {
-//         new ExtractPostInfo();
-        Database database = new Database();
-        database.myConnect(new Rekrute());
+         new ExtractPostInfo();
 
+
+    }
+    public static void savePostInfo(Rekrute rekrute){
+        Database database = new Database();
+        database.myConnect(rekrute);
     }
 }

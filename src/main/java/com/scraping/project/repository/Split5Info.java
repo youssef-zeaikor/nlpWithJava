@@ -2,7 +2,10 @@ package com.scraping.project.repository;
 
 import com.scraping.project.module.Rekrute;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Split5Info {
@@ -31,9 +34,10 @@ public class Split5Info {
 
 
     }
-    public static void diplome(Map<String,String> info){
-        info.entrySet().stream().filter(v -> v.getKey().contains("Niveau d'étude et formation")).
-                map(s -> s.getValue()).
+    public static void diplome(Map<String,String> info,Rekrute rekrute){
+        String diplom;
+        List li = info.entrySet().stream().filter(v -> v.getKey().contains("Niveau d'étude et formation")).
+                 map(s -> s.getValue()).
                 map(s -> {
                     String[] dip = s.split("-");
                     try {
@@ -50,7 +54,7 @@ public class Split5Info {
                         System.out.println(e);
                         return "";
                     }
-                }).
-                forEach(System.out::println);
+                }).collect(Collectors.toList());
+         rekrute.setDiplome(li.get(0).toString());
     }
 }
