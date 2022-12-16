@@ -71,7 +71,8 @@ public class ExtractPostInfo implements PostInfo{
        rekrute.setAddress(address);
    }
    public void url(String post){
-       rekrute.setUrlPost(post);
+       System.out.println(post);
+        rekrute.setUrlPost(post);
    }
    public void datePublicationPostuler(Document post){
        String datesPP = post.select("span.newjob").text();

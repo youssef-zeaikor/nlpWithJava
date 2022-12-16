@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation 'org.jsoup:jsoup:1.15.3'
     implementation 'com.h2database:h2:2.1.214'
+    implementation 'mysql:mysql-connector-java:8.0.30'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 }
