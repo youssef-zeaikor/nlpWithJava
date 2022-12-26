@@ -1,6 +1,6 @@
-package com.scraping.project.repository;
+package com.scraping.project.repository.rekrute;
 
-import com.scraping.project.module.Rekrute;
+import com.scraping.project.module.rekrute.Rekrute;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

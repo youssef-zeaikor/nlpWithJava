@@ -1,12 +1,10 @@
-package com.scraping.project.repository;
+package com.scraping.project.repository.rekrute;
 
-import com.scraping.project.module.Rekrute;
+import com.scraping.project.module.rekrute.Rekrute;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Split5Info {
     public static void splitInfo(Map<String,String> info, Rekrute rekrute){
@@ -44,7 +42,7 @@ public class Split5Info {
                         if (dip.length > 2){
                             return  dip[1].concat(dip[2]) ;
                         }
-                        if (dip.length ==2){
+                        if (dip.length == 2){
                             return  dip[1];
                         }
                         else {

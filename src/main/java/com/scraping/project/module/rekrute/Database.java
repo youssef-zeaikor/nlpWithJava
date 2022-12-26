@@ -1,23 +1,21 @@
-package com.scraping.project.module;
+package com.scraping.project.module.rekrute;
 
 import java.sql.*;
 
-public class SqlDataBase {
+public class Database {
+
     public static final String SAVE_REKRUTE_SQL =
             "INSERT INTO POST_INFO (URL_POST,DATE_PUBLICATION,DATE_POSTLUER" +
                     ",TITLE,SECTEUR,NOM_ENT,TELETRAVAIL,CONTRAT,NIVEAU,REGION,EXP_REQUISE," +
                     "TRAIS_PERSONNALITE,DESCRIPTION_ENT,POST_DESC,PROFIL_RECH,ADDRESS,DIPLOME)" +
-                    " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    String  url = "jdbc:mysql://localhost:3306/rekrute";
-    String user = "root";
-    String password = "icandoit";
+            " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private Connection connection;
     public void myConnect(Rekrute rekrute){
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(url, user, password);
-            System.out.println("connection successful to the data base");
+            connection = DriverManager.getConnection("jdbc:h2:~/peopletest".replace("~", System.getProperty("user.home")));
+//            connection.setAutoCommit(false);//don't register this changes in database
+//            System.out.println("------------");
         } catch (
                 SQLException e) {
             if(connection == null){
@@ -25,12 +23,10 @@ public class SqlDataBase {
 
             }
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
         }
         try {
             //PreparedStatement we can bind values to thes question mark
-            PreparedStatement ps = connection.prepareStatement(SAVE_REKRUTE_SQL);
+            PreparedStatement ps = connection.prepareStatement(SAVE_REKRUTE_SQL, Statement.RETURN_GENERATED_KEYS);
             //setString take two parameters index 1 => means first question mark
             ps.setString(1,rekrute.getUrlPost());
             ps.setString(2,rekrute.getDatePublication());
@@ -49,11 +45,14 @@ public class SqlDataBase {
             ps.setString(15,rekrute.getProfilRecherche());
             ps.setString(16,rekrute.getAddress());
             ps.setString(17,rekrute.getDiplome());
-
-
-            ps.execute();
+            int recordsEffected= ps.executeUpdate();
+            System.out.println(recordsEffected);
+            //Think of a result set as a two dimension array
+            ResultSet rs = ps.getGeneratedKeys();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 }

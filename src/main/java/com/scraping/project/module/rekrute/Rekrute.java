@@ -1,4 +1,4 @@
-package com.scraping.project.module;
+package com.scraping.project.module.rekrute;
 
 
 import java.util.HashSet;

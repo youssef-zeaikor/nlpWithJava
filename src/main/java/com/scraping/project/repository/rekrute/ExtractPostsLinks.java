@@ -1,4 +1,4 @@
-package com.scraping.project.repository;
+package com.scraping.project.repository.rekrute;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -16,7 +16,7 @@ public class ExtractPostsLinks {
     }
     public void  getPostsLinks(){
         int i;
-        for(i=1;i<2;i++){
+        for(i=1;i<100;i++){
             try {
                 String pageUrl = "https://www.rekrute.com/offres.html?p="+i+"&s=1&o=1";
                 Document doc = Jsoup.connect(pageUrl).get();

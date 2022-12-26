@@ -1,14 +1,12 @@
-package com.scraping.project.repository;
+package com.scraping.project.repository.rekrute;
 
-import com.scraping.project.module.Rekrute;
-import com.sun.source.doctree.DocCommentTree;
+import com.scraping.project.module.rekrute.Rekrute;
 import org.example.Main;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import javax.print.Doc;
 import java.io.IOException;
 import java.util.*;
 
@@ -22,7 +20,6 @@ public class ExtractPostInfo implements PostInfo{
 
     public void getPostInfo(){
         System.out.println(postsLinks.size());
-
        for (String post:postsLinks){
             rekrute = new Rekrute();
            try {
@@ -46,8 +43,8 @@ public class ExtractPostInfo implements PostInfo{
 //               langues(postDoc);//doesn't exist
 
 
-               System.out.println(rekrute);
-               Main.savePostInfo(rekrute);
+//               System.out.println(rekrute);
+               Main.saveRekrutePostInfo(rekrute);
 
            } catch (IOException e) {
                System.out.println("------error------------");
@@ -71,7 +68,7 @@ public class ExtractPostInfo implements PostInfo{
        rekrute.setAddress(address);
    }
    public void url(String post){
-       System.out.println(post);
+//       System.out.println(post);
         rekrute.setUrlPost(post);
    }
    public void datePublicationPostuler(Document post){

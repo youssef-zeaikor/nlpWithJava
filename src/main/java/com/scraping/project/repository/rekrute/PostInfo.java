@@ -1,4 +1,4 @@
-package com.scraping.project.repository;
+package com.scraping.project.repository.rekrute;
 
 import org.jsoup.nodes.Document;
 
